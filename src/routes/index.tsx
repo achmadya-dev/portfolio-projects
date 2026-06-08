@@ -38,7 +38,7 @@ const NAV_ITEMS = [
   { href: "#about", label: "About" },
   { href: "#education", label: "Education" },
   { href: "#experience", label: "Experience" },
-  { href: "#projects", label: "Projects" },
+  { href: "#projects", label: "Side Projects" },
   { href: "#contact", label: "Contact" },
 ] as const;
 
@@ -98,6 +98,21 @@ function getInitials(name: string) {
     .join("")
     .slice(0, 2)
     .toUpperCase();
+}
+
+async function downloadResume(url: string, filename: string) {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error("Failed to download resume");
+  }
+
+  const blob = await response.blob();
+  const objectUrl = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = objectUrl;
+  link.download = filename;
+  link.click();
+  URL.revokeObjectURL(objectUrl);
 }
 
 function PortfolioPage() {
@@ -195,8 +210,14 @@ function PortfolioPage() {
                   variant: "ghost",
                   className: "rounded-full px-6",
                 })}
-                download={PORTFOLIO.resumeFilename}
                 href={PORTFOLIO.resume}
+                onClick={(event) => {
+                  event.preventDefault();
+                  downloadResume(
+                    PORTFOLIO.resume,
+                    PORTFOLIO.resumeFilename
+                  ).catch(() => undefined);
+                }}
               >
                 <Download className="mr-2 h-4 w-4" />
                 Download CV
@@ -476,7 +497,7 @@ function PortfolioPage() {
       <Section id="projects" variant="muted">
         <div className="mb-12 text-center">
           <h2 className="font-bold text-3xl tracking-tight md:text-4xl">
-            Featured Projects
+            Side Projects
           </h2>
           <div
             aria-hidden
