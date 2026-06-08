@@ -38,6 +38,12 @@ export type SkillGroup = {
   items: readonly string[];
 };
 
+export type Certification = {
+  issuer: string;
+  title: string;
+  logo: string;
+};
+
 export type SocialLink = {
   label: string;
   href: string;
@@ -187,11 +193,35 @@ export const PORTFOLIO = {
     },
   ] satisfies SkillGroup[],
   certifications: [
-    "Knitto x DQ Lab — Build GenAI Chatbot",
-    "Boot.dev — Python, RAG, and Data Structures",
-    "Dicoding — SOLID, JavaScript, Back-End, AWS Cloud",
-    "LinkedIn Learning — Advanced Express, React.js Essential",
-    "Arutala Lab — Software Testing",
-    "Progate — Fundamental Python",
-  ],
+    {
+      issuer: "Knitto x DQ Lab",
+      title: "Build GenAI Chatbot",
+      logo: "/assets/portfolio/companies/knitto.png",
+    },
+    {
+      issuer: "Boot.dev",
+      title: "Python, RAG, and DSA",
+      logo: "/assets/portfolio/certifications/bootdev.png",
+    },
+    {
+      issuer: "Dicoding",
+      title: "SOLID, JavaScript, Back-End, AWS Cloud",
+      logo: "/assets/portfolio/certifications/dicoding.png",
+    },
+    {
+      issuer: "LinkedIn Learning",
+      title: "Advanced Express, React.js Essential",
+      logo: "/assets/portfolio/certifications/linkedin.svg",
+    },
+    {
+      issuer: "Arutala Lab",
+      title: "Software Testing",
+      logo: "/assets/portfolio/certifications/arutala.png",
+    },
+    {
+      issuer: "Progate",
+      title: "Fundamental Python",
+      logo: "/assets/portfolio/certifications/progate.svg",
+    },
+  ] satisfies Certification[],
 };

@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import {
   ArrowRight,
   Award,
-  BadgeCheck,
   Briefcase,
   Calendar,
   Code2,
@@ -29,6 +28,7 @@ import { TECH_STACK } from "@/features/landing/tech-stack.data";
 import { TechStackMarquee } from "@/features/landing/tech-stack-marquee";
 import { PORTFOLIO } from "@/features/portfolio/portfolio.data";
 import { SocialIcon } from "@/features/portfolio/social-icon";
+import { TechBadge } from "@/features/portfolio/tech-badge";
 import { SITE_URL, seo } from "@/utils/seo";
 
 const WHITESPACE_RE = /\s+/;
@@ -385,43 +385,38 @@ function PortfolioPage() {
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {PORTFOLIO.certifications.map((cert, idx) => {
-                const separator = " — ";
-                const sepIndex = cert.indexOf(separator);
-                const issuer = sepIndex === -1 ? null : cert.slice(0, sepIndex);
-                const title =
-                  sepIndex === -1
-                    ? cert
-                    : cert.slice(sepIndex + separator.length);
-
-                return (
-                  <motion.div
-                    initial={{ opacity: 0, y: 16 }}
-                    key={cert}
-                    transition={{ delay: idx * 0.05 }}
-                    viewport={{ once: true }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                  >
-                    <Card className="group h-full border-border/40 bg-card/40 p-5 backdrop-blur-sm transition-all hover:border-primary/40 hover:bg-card/70 hover:shadow-md hover:shadow-primary/5">
-                      <div className="flex gap-4">
-                        <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                          <BadgeCheck className="size-5" />
-                        </div>
-                        <div className="min-w-0 space-y-1">
-                          {issuer ? (
-                            <p className="font-semibold text-[11px] text-muted-foreground uppercase tracking-wide">
-                              {issuer}
-                            </p>
-                          ) : null}
-                          <p className="font-medium text-sm leading-snug">
-                            {title}
-                          </p>
-                        </div>
+              {PORTFOLIO.certifications.map((cert, idx) => (
+                <motion.div
+                  initial={{ opacity: 0, y: 16 }}
+                  key={`${cert.issuer}-${cert.title}`}
+                  transition={{ delay: idx * 0.05 }}
+                  viewport={{ once: true }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                >
+                  <Card className="group h-full border-border/40 bg-card/40 p-5 backdrop-blur-sm transition-all hover:border-primary/40 hover:bg-card/70 hover:shadow-md hover:shadow-primary/5">
+                    <div className="flex gap-4">
+                      <div className="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border/40 bg-background p-1.5">
+                        <img
+                          alt=""
+                          aria-hidden
+                          className="size-full object-contain"
+                          height={40}
+                          src={cert.logo}
+                          width={40}
+                        />
                       </div>
-                    </Card>
-                  </motion.div>
-                );
-              })}
+                      <div className="min-w-0 space-y-1">
+                        <p className="font-semibold text-[11px] text-muted-foreground uppercase tracking-wide">
+                          {cert.issuer}
+                        </p>
+                        <p className="font-medium text-sm leading-snug">
+                          {cert.title}
+                        </p>
+                      </div>
+                    </div>
+                  </Card>
+                </motion.div>
+              ))}
             </div>
           </div>
         </div>
@@ -484,9 +479,7 @@ function PortfolioPage() {
               </ul>
               <div className="flex flex-wrap gap-2">
                 {job.tech.map((tech) => (
-                  <Badge key={tech} variant="secondary">
-                    {tech}
-                  </Badge>
+                  <TechBadge key={tech} label={tech} />
                 ))}
               </div>
             </motion.article>
@@ -544,9 +537,7 @@ function PortfolioPage() {
                 </CardHeader>
                 <CardContent className="flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
-                    <Badge key={tag} variant="secondary">
-                      {tag}
-                    </Badge>
+                    <TechBadge key={tag} label={tag} />
                   ))}
                 </CardContent>
                 <CardFooter className="mt-auto gap-2">
