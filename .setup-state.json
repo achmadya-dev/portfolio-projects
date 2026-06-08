@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "completedPhases": [
+    "branding",
+    "features",
+    "database",
+    "env",
+    "infra"
+  ],
+  "branding": {
+    "appName": "portfolio-projects",
+    "description": "As The Title Said",
+    "domain": ""
+  },
+  "features": {
+    "stripe": false,
+    "ai": false,
+    "storage": false,
+    "redis": false,
+    "email": false
+  },
+  "database": {
+    "provider": "instagres",
+    "migrated": false
+  },
+  "env": {
+    "placeholders": [
+      "RESEND_API_KEY",
+      "S3_ACCESS_KEY_ID",
+      "S3_SECRET_ACCESS_KEY",
+      "S3_BUCKET"
+    ],
+    "written": true
+  }
+}
