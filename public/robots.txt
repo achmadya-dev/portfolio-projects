@@ -1,11 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /api/
-Disallow: /overview
-Disallow: /chat
-Disallow: /organizations
-Disallow: /settings
 
-Sitemap: https://www.start-kit.dev/sitemap.xml
-
-
+Sitemap: https://example.com/sitemap.xml

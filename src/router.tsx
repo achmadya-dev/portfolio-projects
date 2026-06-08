@@ -1,13 +1,9 @@
-import { QueryCache, QueryClient } from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/react-query";
 import { createRouter } from "@tanstack/react-router";
 import { setupRouterSsrQueryIntegration } from "@tanstack/react-router-ssr-query";
-import { toast } from "sonner";
 
 import { DefaultCatchBoundary } from "./components/error-boundary";
 import { NotFound } from "./components/not-found";
-import { authQueryOptions } from "./lib/auth/queries";
-import { QUERY_STALE_TIMES } from "./lib/config/query-config";
-import { orpc } from "./orpc/orpc-client";
 import { routeTree } from "./routeTree.gen";
 
 export function getRouter() {
@@ -15,38 +11,14 @@ export function getRouter() {
     defaultOptions: {
       queries: {
         refetchOnWindowFocus: false,
-        staleTime: QUERY_STALE_TIMES.AUTH_SESSION,
+        staleTime: 60_000,
       },
     },
-    queryCache: new QueryCache({
-      onError: (error) => {
-        if (
-          error.cause &&
-          // @ts-expect-error - cause is not typed
-          "status" in error.cause &&
-          error.cause.status === 401
-        ) {
-          queryClient.setQueryData(authQueryOptions().queryKey, null);
-          window.location.href = "/sign-in";
-          return;
-        }
-        toast.error(`Error: ${error.message}`, {
-          action: {
-            label: "retry",
-            onClick: () => {
-              queryClient.invalidateQueries();
-            },
-          },
-        });
-      },
-    }),
   });
 
   const router = createRouter({
     routeTree,
-    context: { queryClient, orpc, session: null },
-    // react-query will handle data fetching & caching
-    // https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#passing-all-loader-events-to-an-external-cache
+    context: { queryClient },
     defaultPreloadStaleTime: 0,
     defaultPreload: "intent",
     defaultErrorComponent: DefaultCatchBoundary,
@@ -61,5 +33,6 @@ export function getRouter() {
     handleRedirects: true,
     wrapQueryClient: true,
   });
+
   return router;
 }

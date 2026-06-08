@@ -1,7 +1,6 @@
 import { Link, useCanGoBack, useRouter } from "@tanstack/react-router";
 import { AlertTriangle, ArrowLeft, Home } from "lucide-react";
 import type * as React from "react";
-import { useTranslation } from "react-i18next";
 
 import { Button } from "./ui/button";
 import {
@@ -14,12 +13,10 @@ import {
 } from "./ui/card";
 
 export function NotFound({ children }: { children?: React.ReactNode }) {
-  const { t } = useTranslation();
   const router = useRouter();
   const canGoBack = useCanGoBack();
 
   const handleGoBack = () => {
-    // Use router navigation to go back in history
     router.history.back();
   };
 
@@ -31,15 +28,16 @@ export function NotFound({ children }: { children?: React.ReactNode }) {
             <AlertTriangle className="h-10 w-10 text-muted-foreground" />
           </div>
           <CardTitle className="mb-2 font-semibold text-2xl">
-            {t("NOT_FOUND_TITLE")}
+            Page not found
           </CardTitle>
           <CardDescription className="text-base text-muted-foreground">
-            {children || t("NOT_FOUND_DESC")}
+            {children || "The page you are looking for does not exist."}
           </CardDescription>
         </CardHeader>
         <CardContent className="pb-6">
           <p className="text-muted-foreground text-sm leading-relaxed">
-            {t("NOT_FOUND_MESSAGE")}
+            The page may have been moved, deleted, or the URL might be
+            incorrect.
           </p>
         </CardContent>
         <CardFooter className="flex flex-col justify-center gap-3 pt-2 pb-8 sm:flex-row sm:gap-2">
@@ -51,7 +49,7 @@ export function NotFound({ children }: { children?: React.ReactNode }) {
               variant="outline"
             >
               <ArrowLeft className="mr-2 h-4 w-4" />
-              {t("NOT_FOUND_GO_BACK")}
+              Go back
             </Button>
           ) : null}
           <Button
@@ -60,7 +58,7 @@ export function NotFound({ children }: { children?: React.ReactNode }) {
           >
             <Link className="flex items-center gap-2" to="/">
               <Home className="mr-2 h-4 w-4" />
-              {t("HOME")}
+              Home
             </Link>
           </Button>
         </CardFooter>

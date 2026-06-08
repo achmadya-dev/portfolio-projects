@@ -3,7 +3,6 @@ import type { ErrorComponentProps } from "@tanstack/react-router";
 import { Link, rootRouteId, useMatch, useRouter } from "@tanstack/react-router";
 import { AlertTriangle, ChevronDown, Copy, RefreshCcw } from "lucide-react";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -24,7 +23,6 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
-  const { t } = useTranslation();
   const router = useRouter();
   const isRoot = useMatch({
     strict: false,
@@ -32,10 +30,9 @@ export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
   });
   const [open, setOpen] = useState(false);
 
-  // Better error message and stack extraction
   const getErrorMessage = (errorParam: unknown): string => {
     if (!errorParam) {
-      return t("ERROR_UNKNOWN");
+      return "Unknown error";
     }
 
     if (typeof errorParam === "string") {
@@ -75,14 +72,15 @@ export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
 
   const errorMessage = getErrorMessage(error);
   const errorStack = getErrorStack(error);
+  const unknownError = "Unknown error";
 
   const copyDetails = async () => {
     const body = `${errorMessage}\n\n${errorStack}`.trim();
     try {
       await navigator.clipboard.writeText(body);
-      toast.success(t("ERROR_DETAILS_COPIED"));
+      toast.success("Error details copied");
     } catch {
-      toast.error(t("ERROR_COPY_FAILED"));
+      toast.error("Failed to copy error details");
     }
   };
 
@@ -93,27 +91,27 @@ export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               <AlertTriangle className="text-destructive" />
-              <CardTitle>{t("ERROR_SOMETHING_WRONG")}</CardTitle>
+              <CardTitle>Something went wrong</CardTitle>
             </div>
             <Button
-              aria-label={t("ERROR_TRY_AGAIN")}
+              aria-label="Try again"
               onClick={() => router.invalidate()}
               size="sm"
               type="button"
               variant="outline"
             >
               <RefreshCcw />
-              {t("RETRY")}
+              Retry
             </Button>
           </div>
           <CardDescription className="text-muted-foreground">
-            {t("ERROR_UNEXPECTED")}
+            An unexpected error occurred. Please try again.
           </CardDescription>
         </CardHeader>
         <CardContent className="grid min-h-0 gap-4">
           <Alert variant="destructive">
             <AlertTitle>{errorMessage}</AlertTitle>
-            {(errorStack || errorMessage !== t("ERROR_UNKNOWN")) && (
+            {(errorStack || errorMessage !== unknownError) && (
               <AlertDescription>
                 <Collapsible onOpenChange={setOpen} open={open}>
                   <div className="flex items-center gap-2">
@@ -133,19 +131,19 @@ export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
                                 : "transition-transform"
                             }
                           />
-                          {t("ERROR_DETAILS")}
+                          Error details
                         </Button>
                       </CollapsibleTrigger>
                     )}
                     <Button
-                      aria-label={t("AI_COPY")}
+                      aria-label="Copy"
                       onClick={copyDetails}
                       size="sm"
                       type="button"
                       variant="ghost"
                     >
                       <Copy />
-                      {t("AI_COPY")}
+                      Copy
                     </Button>
                   </div>
                   {errorStack && (
@@ -170,7 +168,7 @@ export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
         <CardFooter className="flex flex-wrap justify-end gap-2">
           {isRoot ? (
             <Button type="button" variant="outline">
-              <Link to="/">{t("HOME")}</Link>
+              <Link to="/">Home</Link>
             </Button>
           ) : (
             <Button
@@ -181,12 +179,12 @@ export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
               type="button"
               variant="outline"
             >
-              {t("GO_BACK")}
+              Go back
             </Button>
           )}
           <Button onClick={() => router.invalidate()} type="button">
             <RefreshCcw />
-            {t("ERROR_TRY_AGAIN")}
+            Try again
           </Button>
         </CardFooter>
       </Card>

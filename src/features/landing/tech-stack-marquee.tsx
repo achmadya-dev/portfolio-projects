@@ -6,9 +6,10 @@ import { cn } from "@/lib/utils";
 
 export type TechStackItem = {
   label: string;
-  kind: "simple-icon" | "start-kit" | "fallback";
+  kind: "simple-icon" | "start-kit" | "fallback" | "image";
   simpleIcon?: SimpleIcon;
   fallbackText?: string;
+  imageSrc?: string;
 };
 
 type TechStackMarqueeProps = {
@@ -29,6 +30,19 @@ function TechIcon({ item }: { item: TechStackItem }) {
         className="h-6 w-6 shrink-0"
         focusable="false"
         svgTitle="Start Kit"
+      />
+    );
+  }
+
+  if (item.kind === "image" && item.imageSrc) {
+    return (
+      <img
+        alt=""
+        aria-hidden="true"
+        className="h-6 w-6 shrink-0 object-contain"
+        height={24}
+        src={item.imageSrc}
+        width={24}
       />
     );
   }
@@ -72,14 +86,11 @@ export function TechStackMarquee({
 
   return (
     <div
-      className={cn(
-        "tech-marquee relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]",
-        className
-      )}
+      className={cn("tech-marquee relative overflow-hidden", className)}
       data-tech-marquee="true"
       style={style}
     >
-      <div className="tech-marquee__track flex w-max gap-[var(--tech-marquee-gap,2.5rem)]">
+      <div className="tech-marquee__track flex w-max gap-(--tech-marquee-gap,2.5rem)">
         <div className="tech-marquee__group flex shrink-0 items-center gap-4">
           {items.map((item) => (
             <div

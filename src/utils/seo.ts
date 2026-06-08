@@ -1,7 +1,6 @@
-export const SITE_URL = "https://www.start-kit.dev" as const;
-export const DEFAULT_OG_IMAGE_PATH = "/images/landing/hero-bg.png" as const;
-export const DEFAULT_TWITTER_HANDLE = "@startkitdev" as const;
-export const DEFAULT_SITE_NAME = "Start Kit" as const;
+export const SITE_URL = "https://example.com" as const;
+export const DEFAULT_TWITTER_HANDLE = "" as const;
+export const DEFAULT_SITE_NAME = "Achmadya Ridwan Ilyawan" as const;
 
 type SeoInput = {
   title: string;
@@ -39,14 +38,13 @@ export const seo = ({
   twitterCreator = DEFAULT_TWITTER_HANDLE,
 }: SeoInput) => {
   const resolvedUrl = url ? resolveUrl(url) : undefined;
-  const resolvedImage = resolveUrl(image ?? DEFAULT_OG_IMAGE_PATH);
+  const resolvedImage = image ? resolveUrl(image) : undefined;
   const resolvedCanonical = canonicalUrl ? resolveUrl(canonicalUrl) : undefined;
 
   const meta = [
     { title },
     ...(description ? [{ name: "description", content: description }] : []),
     ...(keywords ? [{ name: "keywords", content: keywords }] : []),
-    // Open Graph
     { property: "og:type", content: type },
     { property: "og:title", content: title },
     ...(description
@@ -54,14 +52,20 @@ export const seo = ({
       : []),
     ...(resolvedUrl ? [{ property: "og:url", content: resolvedUrl }] : []),
     { property: "og:site_name", content: siteName },
-    { property: "og:image", content: resolvedImage },
-    // Twitter Card
-    { name: "twitter:card", content: "summary_large_image" },
+    ...(resolvedImage
+      ? [{ property: "og:image", content: resolvedImage }]
+      : []),
+    {
+      name: "twitter:card",
+      content: resolvedImage ? "summary_large_image" : "summary",
+    },
     { name: "twitter:title", content: title },
     ...(description
       ? [{ name: "twitter:description", content: description }]
       : []),
-    { name: "twitter:image", content: resolvedImage },
+    ...(resolvedImage
+      ? [{ name: "twitter:image", content: resolvedImage }]
+      : []),
     ...(twitterSite ? [{ name: "twitter:site", content: twitterSite }] : []),
     ...(twitterCreator
       ? [{ name: "twitter:creator", content: twitterCreator }]
