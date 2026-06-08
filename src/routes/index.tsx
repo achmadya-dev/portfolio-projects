@@ -26,6 +26,7 @@ import {
 import { Section } from "@/features/landing/landing-section";
 import { TECH_STACK } from "@/features/landing/tech-stack.data";
 import { TechStackMarquee } from "@/features/landing/tech-stack-marquee";
+import { BrandLogo } from "@/features/portfolio/brand-logo";
 import { PORTFOLIO } from "@/features/portfolio/portfolio.data";
 import { SocialIcon } from "@/features/portfolio/social-icon";
 import { TechBadge } from "@/features/portfolio/tech-badge";
@@ -324,13 +325,12 @@ function PortfolioPage() {
                           aria-hidden
                           className="absolute inset-0 rounded-2xl bg-primary/25 blur-2xl"
                         />
-                        <div className="relative flex size-28 items-center justify-center rounded-2xl border border-primary/20 bg-background p-4 shadow-lg shadow-primary/10">
-                          <img
+                        <div className="relative flex size-28 items-center justify-center rounded-2xl border border-primary/20 bg-white p-4 shadow-lg shadow-primary/10">
+                          <BrandLogo
                             alt={entry.school}
-                            className="max-h-full max-w-full object-contain"
-                            height={80}
+                            className="size-full"
+                            imageClassName="size-full"
                             src={entry.logo}
-                            width={80}
                           />
                         </div>
                       </div>
@@ -395,16 +395,12 @@ function PortfolioPage() {
                 >
                   <Card className="group h-full border-border/40 bg-card/40 p-5 backdrop-blur-sm transition-all hover:border-primary/40 hover:bg-card/70 hover:shadow-md hover:shadow-primary/5">
                     <div className="flex gap-4">
-                      <div className="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border/40 bg-background p-1.5">
-                        <img
-                          alt=""
-                          aria-hidden
-                          className="size-full object-contain"
-                          height={40}
-                          src={cert.logo}
-                          width={40}
-                        />
-                      </div>
+                      <BrandLogo
+                        className="size-10 rounded-lg border border-border/40 p-1.5"
+                        height={40}
+                        src={cert.logo}
+                        width={40}
+                      />
                       <div className="min-w-0 space-y-1">
                         <p className="font-semibold text-[11px] text-muted-foreground uppercase tracking-wide">
                           {cert.issuer}
@@ -445,9 +441,8 @@ function PortfolioPage() {
             >
               <div className="absolute top-2 -left-[5px] size-2 rounded-full bg-primary" />
               <div className="mb-4 flex flex-wrap items-center gap-3">
-                <img
-                  alt=""
-                  className="size-8 rounded-md border border-border/60 bg-background object-contain p-1"
+                <BrandLogo
+                  className="size-8 rounded-md border border-border/60 p-1"
                   height={32}
                   src={job.logo}
                   width={32}

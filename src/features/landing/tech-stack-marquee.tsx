@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 import type { SimpleIcon } from "simple-icons";
 
 import { Logo } from "@/components/ui/logo";
+import { BrandLogo } from "@/features/portfolio/brand-logo";
 import { cn } from "@/lib/utils";
 
 export type TechStackItem = {
@@ -36,13 +37,10 @@ function TechIcon({ item }: { item: TechStackItem }) {
 
   if (item.kind === "image" && item.imageSrc) {
     return (
-      <img
-        alt=""
-        aria-hidden="true"
-        className="h-6 w-6 shrink-0 object-contain"
-        height={24}
+      <BrandLogo
+        className="size-6 rounded-md p-0.5"
+        imageClassName="size-full"
         src={item.imageSrc}
-        width={24}
       />
     );
   }

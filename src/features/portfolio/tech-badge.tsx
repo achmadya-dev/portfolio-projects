@@ -3,6 +3,7 @@ import type { VariantProps } from "class-variance-authority";
 import { Badge, type badgeVariants } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
+import { BrandLogo } from "./brand-logo";
 import { getTechIconSrc } from "./tech-icons";
 
 type TechBadgeProps = {
@@ -20,13 +21,10 @@ export function TechBadge({
   return (
     <Badge className={cn("gap-1.5", className)} variant={variant}>
       {iconSrc ? (
-        <img
-          alt=""
-          aria-hidden
-          className="size-3.5 shrink-0 object-contain"
-          height={14}
+        <BrandLogo
+          className="size-3.5 rounded-sm p-px"
+          imageClassName="size-full"
           src={iconSrc}
-          width={14}
         />
       ) : null}
       {label}
