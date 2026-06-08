@@ -103,117 +103,111 @@ function getInitials(name: string) {
 function PortfolioPage() {
   return (
     <div className="min-h-screen scroll-smooth bg-background text-foreground">
-      <nav className="fixed top-0 right-0 left-0 z-50 border-border/40 border-b bg-background/60 backdrop-blur-xl">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between gap-4">
-            <div className="hidden items-center gap-6 md:flex">
-              {NAV_ITEMS.map((item) => (
-                <a
-                  className="text-muted-foreground text-sm transition-colors hover:text-foreground"
-                  href={item.href}
-                  key={item.href}
-                >
-                  {item.label}
-                </a>
-              ))}
-            </div>
+      <nav className="fixed top-0 right-0 left-0 z-50 border-border/40 border-b bg-background/80 backdrop-blur-xl">
+        <div className="container relative mx-auto flex h-16 items-center justify-between gap-4 px-4">
+          <a
+            className="font-semibold text-foreground text-sm tracking-tight transition-opacity hover:opacity-80"
+            href="#top"
+          >
+            {PORTFOLIO.shortName}
+          </a>
 
-            <div className="ml-auto flex items-center gap-2">
-              <ThemeSwitcher />
+          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 md:flex">
+            {NAV_ITEMS.map((item) => (
               <a
-                className={buttonVariants({
-                  className: "hidden rounded-full sm:inline-flex",
-                })}
-                href="#contact"
+                className="rounded-full px-3.5 py-1.5 text-muted-foreground text-sm transition-colors hover:bg-accent hover:text-foreground"
+                href={item.href}
+                key={item.href}
               >
-                Contact Me
+                {item.label}
               </a>
-            </div>
+            ))}
           </div>
-        </div>
-      </nav>
 
-      <section className="relative overflow-hidden pt-32 pb-20 md:pt-48 md:pb-32">
-        <div className="absolute inset-0 z-0 bg-linear-to-b from-primary/10 via-background to-background" />
-        <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_top,var(--color-primary)_0%,transparent_55%)] opacity-20" />
-
-        <div className="container relative z-10 mx-auto px-4 text-center">
-          <Badge
-            className="mb-6 border-primary/80 bg-primary px-4 py-2 font-medium text-primary-foreground text-sm"
-            variant="outline"
-          >
-            {PORTFOLIO.availability}
-          </Badge>
-
-          <motion.h1
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-4 font-black text-5xl tracking-tighter md:text-7xl"
-            initial={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.5 }}
-          >
-            {PORTFOLIO.name}
-          </motion.h1>
-
-          <motion.p
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-4 font-semibold text-primary text-xl md:text-2xl"
-            initial={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            {PORTFOLIO.role}
-          </motion.p>
-
-          <motion.p
-            animate={{ opacity: 1, y: 0 }}
-            className="mx-auto mb-10 max-w-2xl text-balance text-lg text-muted-foreground md:text-xl"
-            initial={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            {PORTFOLIO.tagline}
-          </motion.p>
-
-          <motion.div
-            animate={{ opacity: 1, y: 0 }}
-            className="flex flex-col justify-center gap-4 sm:flex-row"
-            initial={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
+          <div className="flex items-center gap-2">
+            <ThemeSwitcher />
             <a
               className={buttonVariants({
-                className:
-                  "h-12 rounded-full px-8 font-semibold shadow-lg shadow-primary/25",
-              })}
-              href="#projects"
-            >
-              View Projects
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </a>
-            <a
-              className={buttonVariants({
-                variant: "outline",
-                className: "h-12 rounded-full px-8",
+                className: "hidden rounded-full sm:inline-flex",
+                size: "sm",
               })}
               href="#contact"
             >
               Contact Me
             </a>
-            <a
-              className={buttonVariants({
-                variant: "outline",
-                className: "h-12 rounded-full px-8",
-              })}
-              download
-              href={PORTFOLIO.resume}
-            >
-              <Download className="mr-2 h-4 w-4" />
-              Download CV
-            </a>
-          </motion.div>
-
-          <div className="mt-8 flex items-center justify-center gap-2 text-muted-foreground text-sm">
-            <MapPin className="h-4 w-4" />
-            <span>{PORTFOLIO.location}</span>
           </div>
+        </div>
+      </nav>
+
+      <section
+        className="relative overflow-hidden border-border/40 border-b pt-28 pb-16 md:pt-32 md:pb-20"
+        id="top"
+      >
+        <div className="absolute inset-0 z-0 bg-linear-to-br from-primary/8 via-background to-background" />
+
+        <div className="container relative z-10 mx-auto max-w-4xl px-4 text-center">
+          <motion.div
+            animate={{ opacity: 1, y: 0 }}
+            className="mx-auto max-w-3xl"
+            initial={{ opacity: 0, y: 16 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Badge
+              className="mb-5 rounded-full border-primary/30 bg-primary/10 px-3 py-1 font-medium text-primary text-xs"
+              variant="outline"
+            >
+              {PORTFOLIO.availability}
+            </Badge>
+
+            <h1 className="mb-3 font-bold text-4xl tracking-tight md:text-6xl lg:text-7xl">
+              {PORTFOLIO.name}
+            </h1>
+
+            <p className="mb-2 font-medium text-lg text-primary md:text-xl">
+              {PORTFOLIO.role}
+            </p>
+
+            <p className="mx-auto mb-8 max-w-2xl text-balance text-lg text-muted-foreground md:text-xl">
+              {PORTFOLIO.tagline}
+            </p>
+
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <a
+                className={buttonVariants({
+                  className: "rounded-full px-6",
+                })}
+                href="#projects"
+              >
+                View Projects
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </a>
+              <a
+                className={buttonVariants({
+                  variant: "outline",
+                  className: "rounded-full px-6",
+                })}
+                href="#contact"
+              >
+                Contact Me
+              </a>
+              <a
+                className={buttonVariants({
+                  variant: "ghost",
+                  className: "rounded-full px-6",
+                })}
+                download
+                href={PORTFOLIO.resume}
+              >
+                <Download className="mr-2 h-4 w-4" />
+                Download CV
+              </a>
+            </div>
+
+            <p className="mt-8 flex items-center justify-center gap-2 text-muted-foreground text-sm">
+              <MapPin className="h-4 w-4 shrink-0" />
+              {PORTFOLIO.location}
+            </p>
+          </motion.div>
         </div>
       </section>
 
@@ -223,6 +217,16 @@ function PortfolioPage() {
 
       <Section id="about">
         <div className="mx-auto max-w-4xl">
+          <div className="mb-12 text-center">
+            <h2 className="font-bold text-3xl tracking-tight md:text-4xl">
+              About Me
+            </h2>
+            <div
+              aria-hidden
+              className="mx-auto mt-4 h-1 w-10 rounded-full bg-primary"
+            />
+          </div>
+
           <div className="grid items-center gap-10 md:grid-cols-[minmax(0,220px)_1fr] md:gap-12 lg:grid-cols-[minmax(0,260px)_1fr] lg:gap-16">
             <motion.div
               className="flex justify-center md:justify-start"
@@ -262,9 +266,6 @@ function PortfolioPage() {
               viewport={{ once: true }}
               whileInView={{ opacity: 1, x: 0 }}
             >
-              <h2 className="mb-5 font-bold text-3xl tracking-tight md:text-4xl">
-                About Me
-              </h2>
               <p className="text-balance text-lg text-muted-foreground leading-relaxed md:text-xl">
                 {PORTFOLIO.about}
               </p>
@@ -274,14 +275,14 @@ function PortfolioPage() {
       </Section>
 
       <Section id="education">
-        <div className="mb-16 text-center">
-          <h2 className="mb-4 font-bold text-3xl tracking-tight md:text-4xl">
+        <div className="mb-12 text-center">
+          <h2 className="font-bold text-3xl tracking-tight md:text-4xl">
             Education & Certifications
           </h2>
-          <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-            Academic background and credentials that shaped my engineering
-            journey
-          </p>
+          <div
+            aria-hidden
+            className="mx-auto mt-4 h-1 w-10 rounded-full bg-primary"
+          />
         </div>
 
         <div className="mx-auto max-w-5xl space-y-12">
@@ -346,8 +347,8 @@ function PortfolioPage() {
           </div>
 
           <div>
-            <div className="mb-8 flex flex-col items-center gap-2 text-center sm:flex-row sm:justify-between sm:text-left">
-              <div className="flex items-center gap-2">
+            <div className="mb-8 text-center">
+              <div className="flex flex-col items-center gap-2">
                 <div className="flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
                   <Award className="size-5" />
                 </div>
@@ -406,13 +407,14 @@ function PortfolioPage() {
       </Section>
 
       <Section id="experience" variant="muted">
-        <div className="mb-16 text-center">
-          <h2 className="mb-4 font-bold text-3xl tracking-tight md:text-4xl">
+        <div className="mb-12 text-center">
+          <h2 className="font-bold text-3xl tracking-tight md:text-4xl">
             Work Experience
           </h2>
-          <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-            Professional roles building backend systems and full-stack products
-          </p>
+          <div
+            aria-hidden
+            className="mx-auto mt-4 h-1 w-10 rounded-full bg-primary"
+          />
         </div>
 
         <div className="mx-auto max-w-3xl space-y-10">
@@ -472,13 +474,14 @@ function PortfolioPage() {
       </Section>
 
       <Section id="projects" variant="muted">
-        <div className="mb-16 text-center">
-          <h2 className="mb-4 font-bold text-3xl tracking-tight md:text-4xl">
+        <div className="mb-12 text-center">
+          <h2 className="font-bold text-3xl tracking-tight md:text-4xl">
             Featured Projects
           </h2>
-          <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-            Selected work showing how I build digital products
-          </p>
+          <div
+            aria-hidden
+            className="mx-auto mt-4 h-1 w-10 rounded-full bg-primary"
+          />
         </div>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -563,10 +566,14 @@ function PortfolioPage() {
 
       <Section id="contact">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="mb-4 font-bold text-3xl tracking-tight md:text-4xl">
+          <h2 className="font-bold text-3xl tracking-tight md:text-4xl">
             Let&apos;s Collaborate
           </h2>
-          <p className="mb-8 text-lg text-muted-foreground">
+          <div
+            aria-hidden
+            className="mx-auto mt-4 h-1 w-10 rounded-full bg-primary"
+          />
+          <p className="mt-8 mb-8 text-lg text-muted-foreground">
             Have a project idea or want to discuss? Reach out via email or
             social media below.
           </p>
