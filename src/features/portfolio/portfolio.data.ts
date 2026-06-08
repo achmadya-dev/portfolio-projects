@@ -55,8 +55,7 @@ export const PORTFOLIO = {
   phone: "+62 821-1603-0304",
   location: "Bandung, West Java, Indonesia",
   availability: "Available",
-  resume:
-    "/assets/portfolio/Resume Achmadya Ridwan Ilyawan - Backend Developer.pdf",
+  resume: "/assets/portfolio/cv.pdf",
   resumeFilename: "Resume Achmadya Ridwan Ilyawan - Backend Developer.pdf",
   avatar: "/assets/portfolio/profile.jpg",
   socials: [
