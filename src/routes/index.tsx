@@ -195,7 +195,7 @@ function PortfolioPage() {
                   variant: "ghost",
                   className: "rounded-full px-6",
                 })}
-                download
+                download={PORTFOLIO.resumeFilename}
                 href={PORTFOLIO.resume}
               >
                 <Download className="mr-2 h-4 w-4" />

@@ -56,6 +56,7 @@ export const PORTFOLIO = {
   location: "Bandung, West Java, Indonesia",
   availability: "Available",
   resume: "/assets/portfolio/cv.pdf",
+  resumeFilename: "Resume Achmadya Ridwan Ilyawan - Backend Developer.pdf",
   avatar: "/assets/portfolio/profile.jpg",
   socials: [
     {
@@ -119,26 +120,6 @@ export const PORTFOLIO = {
   ] satisfies WorkExperience[],
   projects: [
     {
-      id: "himakom",
-      title: "Himakom Polban",
-      role: "Full Stack Developer — Volunteer",
-      period: "Jun 2023 — Sep 2023",
-      description:
-        "Member Management Web and API for streamlined administration and event broadcasting.",
-      image: "/assets/portfolio/projects/himakom.png",
-      tags: ["Laravel", "Bootstrap", "jQuery", "Firebase Cloud Messaging"],
-    },
-    {
-      id: "polban-risk",
-      title: "Polban Risk",
-      role: "Full Stack Developer — Freelance",
-      period: "Jan 2024 — Jun 2024",
-      description:
-        "Web application to identify, assess, and manage risks at Politeknik Negeri Bandung — full lifecycle from design to deployment.",
-      image: "/assets/portfolio/projects/polban-risk.png",
-      tags: ["Laravel", "PHP", "MySQL"],
-    },
-    {
       id: "mcp-databases",
       title: "MCP Databases",
       role: "Developer — Volunteer",
@@ -156,6 +137,26 @@ export const PORTFOLIO = {
         "Excel",
       ],
       github: "https://github.com/achmadya-dev/mcp-mysql-query",
+    },
+    {
+      id: "polban-risk",
+      title: "Polban Risk",
+      role: "Full Stack Developer — Freelance",
+      period: "Jan 2024 — Jun 2024",
+      description:
+        "Web application to identify, assess, and manage risks at Politeknik Negeri Bandung — full lifecycle from design to deployment.",
+      image: "/assets/portfolio/projects/polban-risk.png",
+      tags: ["Laravel", "PHP", "MySQL"],
+    },
+    {
+      id: "himakom",
+      title: "Himakom Polban",
+      role: "Full Stack Developer — Volunteer",
+      period: "Jun 2023 — Sep 2023",
+      description:
+        "Member Management Web and API for streamlined administration and event broadcasting.",
+      image: "/assets/portfolio/projects/himakom.png",
+      tags: ["Laravel", "Bootstrap", "jQuery", "Firebase Cloud Messaging"],
     },
   ] as PortfolioProject[],
   education: [
